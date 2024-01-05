@@ -1,0 +1,8 @@
+[
+    { "title": "Shopi", "href": "/" },
+    { "title": "Clothes", "href": "clothes" },
+    { "title": "Electronics", "href": "electronics" },
+    { "title": "Fernitures", "href": "fernitures" },
+    { "title": "Toys", "href": "toys" },
+    { "title": "Others", "href": "others" }
+]

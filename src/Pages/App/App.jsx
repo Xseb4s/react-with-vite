@@ -1,4 +1,5 @@
 import { useRoutes, BrowserRouter } from 'react-router-dom';
+import { ShoppingCartProvider } from '../../context';
 import Home from '../Home/Home';
 import MyAccount from '../MyAccount/MyAccount';
 import MyOrder from '../MyOrder/MyOrder';
@@ -6,14 +7,18 @@ import MyOrders from '../MyOrders/MyOrders';
 import NotFound from '../NotFound/NotFound';
 import SignIn from '../SignIn/SignIn';
 import Navbar from '../../components/navbar/navbar.components';
+import CheckoutSideMenu from '../../components/checkout-side-menu/checkout-side-menu.components';
 import './App.css';
 
 const AppRoutes = () => {
   let routes = useRoutes([
     { path: '/', element: <Home /> },
+    { path: '/:category', element: <Home /> },
     { path: '/my-account', element: <MyAccount /> },
     { path: '/my-order', element: <MyOrder /> },
     { path: '/my-orders', element: <MyOrders /> },
+    { path: '/my-orders/last', element: <MyOrder /> },
+    { path: '/my-orders/:id', element: <MyOrder /> },
     { path: '/sign-in', element: <SignIn /> },
     { path: '*', element: <NotFound /> },
   ]);
@@ -23,10 +28,13 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <AppRoutes/>
-      <Navbar/>
-    </BrowserRouter>
+    <ShoppingCartProvider>
+      <BrowserRouter>
+        <AppRoutes/>
+        <Navbar/>
+        <CheckoutSideMenu/>
+      </BrowserRouter>
+    </ShoppingCartProvider>
   )
 }
 
