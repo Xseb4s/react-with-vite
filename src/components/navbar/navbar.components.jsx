@@ -7,7 +7,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 
 
 const Navbar = () => {
-    const {count, setSearchByCategory} = useContext(ShoppingCartContext);
+    const {count, setSearchByCategory, setSignOut} = useContext(ShoppingCartContext);
     const handleNavLinkClick = (item) => {
         if (item.href !== "/") {
             setSearchByCategory(item.href);
@@ -15,6 +15,11 @@ const Navbar = () => {
             setSearchByCategory(null);
         }
     };
+    const handleSignOut = () =>{
+        const stringifiedSignOut = JSON.stringify(true)
+        localStorage.setItem("sign-out", stringifiedSignOut)
+        setSignOut(true)
+    }
     const activeStyle = 'underline underline-offset-4';
 
     return(
@@ -37,9 +42,20 @@ const Navbar = () => {
                 </li>
                 {menuProfile.map((item, i) => (
                     <li key={i} className="text-white" >
-                        <NavLink to={item.href} className={({isActive}) =>isActive ? activeStyle : undefined}>
-                            {item.title}
-                        </NavLink>
+                        {!item.required ? (
+                            <NavLink to={item.href} className={({isActive}) =>isActive ? activeStyle : undefined}>
+                                {item.title}
+                            </NavLink>
+                        ) : (
+                            <NavLink 
+                            to={item.href} 
+                            className={({isActive}) =>isActive ? activeStyle : undefined}
+                            onClick={() => handleSignOut()}
+                            >
+                                {item.title}
+                            </NavLink>
+                        )
+                        }                        
                     </li>
                 ))}
                 <li>

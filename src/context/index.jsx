@@ -3,8 +3,35 @@ import {apiUrl} from "../api/getProducts"
 
 export const ShoppingCartContext = createContext();
 
+export const initializeStorage = () => {
+  const accountStorage = localStorage.getItem("account");
+  const signOutStorage = localStorage.getItem("sign-out");
+  let parsedAccount
+  let parsedSignOut
+
+  if(!accountStorage){ 
+    localStorage.setItem("account", JSON.stringify({}))
+    parsedAccount = {}
+  } else {
+    parsedAccount = JSON.parse(accountStorage);
+  }
+
+  if (!signOutStorage) {
+    localStorage.setItem("sign-out", JSON.stringify(false))
+    parsedSignOut = false
+  } else {
+    parsedSignOut = JSON.parse(signOutStorage);
+  }
+
+}
+
 // eslint-disable-next-line react/prop-types
 export const ShoppingCartProvider = ({children}) => {
+
+    /* account */
+    const [account, setAccount] = useState({})
+    /* sign out */
+    const [signOut, setSignOut] = useState(false)
     /* shopping cart - increment quantity */
     const [count, setCount] = useState(0);
     /* shopping cart - add to cart */
@@ -103,7 +130,11 @@ export const ShoppingCartProvider = ({children}) => {
                 setSearchByTitle,
                 filteredItems,
                 searchByCategory,
-                setSearchByCategory
+                setSearchByCategory,
+                account,
+                setAccount,
+                signOut,
+                setSignOut
             }}>
                 {children}
             </ShoppingCartContext.Provider>
