@@ -6,8 +6,8 @@ import { Link, useNavigate,  } from "react-router-dom";
 const SignIn = () => {
     const {account, setSignOut, setAccount} = useContext(ShoppingCartContext);
 
-    const [view, setView] = useState(false)
-    const [showPassword, setShowPassword] = useState("user-info");
+    const [view, setView] = useState("user-info")
+    const [showPassword, setShowPassword] = useState(false);
     const form = useRef(null);
     const navigate = useNavigate();
 
